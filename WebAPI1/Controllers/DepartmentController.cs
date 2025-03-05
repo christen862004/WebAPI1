@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebAPI1.Models;
 
 namespace WebAPI1.Controllers
@@ -24,10 +25,21 @@ namespace WebAPI1.Controllers
         }
        
         [HttpGet("{id:int}")]//api/Departmetn/1
-        public IActionResult GetByID(int id)
+        public ActionResult<GeneralResponse> GetByID(int id)
         {
             Department dept = context.Department.FirstOrDefault(d=>d.Id==id);
-            return Ok(dept);
+            GeneralResponse response = new GeneralResponse();
+            if (dept == null)
+            {
+                response.IsPass = false;
+                response.Data = "Invalid ID";
+            }
+            else
+            {
+                response.IsPass = true;
+                response.Data = dept;
+            }
+            return response;
         }
 
         [HttpGet("{name:alpha}")]//api/DEpartment/ss

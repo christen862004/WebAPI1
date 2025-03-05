@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div id="div1"></div>
+    <input type="button" value="Get Data" onclick="GetData()" />
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        //Call Web aPI USing Ajax (Jquery)
+        //http://localhost:61461/api/Employee/1 //Extrenal Consumer
+        function GetData() {
+            $.ajax({
+                url: "/api/Employee/1",
+
+                success: function (result) {
+                    console.log(result);
+                    $("#div1").html(result.empName);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

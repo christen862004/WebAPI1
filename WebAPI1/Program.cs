@@ -17,6 +17,15 @@ namespace WebAPI1
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
             });
+            //cors Servise built in service need to register
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("myPolicy", policy => {
+
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -29,7 +38,11 @@ namespace WebAPI1
                 app.UseSwagger();//for test
                 app.UseSwaggerUI();
             }
+            app.UseStaticFiles();//folder wwwroote
 
+            app.UseCors("myPolicy");  //allow cross Domin
+
+            //default routing controller
             app.UseAuthorization();
             app.MapControllers();
 
