@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI1.Models;
@@ -18,6 +19,7 @@ namespace WebAPI1.Controllers
         }
         //api/Department  Get
         [HttpGet]
+        [Authorize]//check Token
         public IActionResult DisplayAll() {
             List<Department> DeptList = context.Department.ToList();
             //httpresponse (200 ,DeptList)
